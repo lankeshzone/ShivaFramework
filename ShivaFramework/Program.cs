@@ -42,7 +42,7 @@ namespace ShivaFramework
             {
                 wait.Until(d => d.FindElement(locator).Displayed);
                 return true;
-                //test
+                //test 123
             }
             catch (Exception)
             {
@@ -69,7 +69,23 @@ namespace ShivaFramework
             BaseUtils.PageDown(driver);
             By locator = By.LinkText("sadgadgdf");
 
+            WebDriverWait w = new WebDriverWait(driver, TimeSpan.FromSeconds(8));
+
+            w.Until(driver2 => driver2.FindElement(By.XPath("//test")).Enabled);
+
            Console.WriteLine("Home link found: " + BaseUtils.WaitForDisplayed(locator, 10, driver));
+
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+
+            Func<IWebDriver, bool> waitForElement = new Func<IWebDriver, bool>((IWebDriver web) =>
+            {
+                Console.WriteLine(web.FindElement(By.Id("target")).GetAttribute("innerHTML"));
+                return true;
+            });
+            wait.Until(waitForElement);
+            
+
         }
 
     }
